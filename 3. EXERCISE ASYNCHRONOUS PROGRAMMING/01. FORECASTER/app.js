@@ -9,9 +9,6 @@ function attachEvents() {
         const todayDiv = document.getElementById("current");
         const upcomingDiv = document.getElementById("upcoming");
         let input = document.getElementById("location");
-        let errorDiv = document.createElement("div");
-        errorDiv.id = "error";
-        document.getElementById("request").appendChild(errorDiv);
 
         buton.addEventListener("click", getWeather);
 
@@ -22,9 +19,12 @@ function attachEvents() {
                 code = await data.getCode(locationName);
             }
             catch(error){
-                mainDiv.style.display = "block";
-                errorDiv.textContent = "Error!";
-                mainDiv.style.display = "none";
+                upcomingDiv.style.display = "none";
+                todayDiv.innerHTML = "";
+                let currentLabelDiv = document.createElement("div");
+                currentLabelDiv.className = "label";
+                currentLabelDiv.textContent = "ERROR";
+                todayDiv.appendChild(currentLabelDiv);
                 return
             }
 
@@ -46,7 +46,6 @@ function attachEvents() {
 
             mainDiv.style.display = "block";
             todayDiv.innerHTML = "";
-            document.getElementById("error").innerHTML = "";
             let currentLabelDiv = document.createElement("div");
             currentLabelDiv.className = "label";
             currentLabelDiv.textContent = "Current conditions";
@@ -75,11 +74,12 @@ function attachEvents() {
             todayDiv.appendChild(divCurrentForecast);
 
             //---------------------------------------------------------------
+            upcomingDiv.style.display = "block";
             upcomingDiv.innerHTML = "";
             let upcomingLabelDiv = document.createElement("div");
             upcomingLabelDiv.className = "label";
             upcomingLabelDiv.textContent = "Three-day forecast";
-            upcomingDiv.appendChild(currentLabelDiv);
+            upcomingDiv.appendChild(upcomingLabelDiv);
 
             let upcomingDivInfo = document.createElement("div");
             upcomingDivInfo.className = "forecast-info";
