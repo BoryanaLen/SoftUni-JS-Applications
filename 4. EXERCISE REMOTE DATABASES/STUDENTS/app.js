@@ -76,7 +76,7 @@ window.addEventListener("load", () => {
     }
 
     function getEntryDatafromFields(){
-        const id = Number(getLastIdInTable());
+        const id = Number(getNextIdInTable());
         const firstName = firstNameElement.value;
         const lastName = lastNameElement.value;
         const facultyNumber = facultyNumberElement.value;
@@ -84,10 +84,10 @@ window.addEventListener("load", () => {
         return { id, firstName, lastName, facultyNumber, grade };
     }
 
-    function getLastIdInTable(){
+    function getNextIdInTable(){
         if (tbody.children.length > 0) {
-            let nextId = tbody.lastChild.firstChild.textContent;
-            return Number(nextId) + 1;
+            let lastId = tbody.lastChild.firstChild.textContent;
+            return Number(lastId) + 1;
         }else{
             return 1;
         }

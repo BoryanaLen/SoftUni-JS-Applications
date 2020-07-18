@@ -12,22 +12,25 @@ export async function getData(){
     return data;
 }
 
-export function deleteEntry(id){
-    return fetch(host(id), {
+export async function deleteEntry(id){
+    return (await fetch(host(id), {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
         }
-    })
+    }));
 }
+
 export async function createEntry(entry){
-    return (await fetch(host(), {
+    const data = await (await fetch(host(), {
         method: "POST",
         body: JSON.stringify(entry),
         headers: {
             "Content-Type": "application/json"
         }
     })).json();
+
+    return data;
 }
 
 export async function updateEntry(id, entry){
